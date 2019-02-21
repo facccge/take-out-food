@@ -1,3 +1,21 @@
+describe('Format input from string to object', function () {
+  it('should format input(selectedItems) from string to object', function() {
+    let inputs = ["ITEM0001 x 1", "ITEM0013 x 2", "ITEM0022 x 1"]
+    let summary = formatInputFromStringToObject(inputs);
+    let expected = [{
+      id: 'ITEM0001',
+      quantity: 1
+    }, {
+      id: 'ITEM0013',
+      quantity: 2
+    }, {
+      id: 'ITEM0022',
+      quantity: 1
+    }];
+    expect(summary).toEqual(expected)
+  });
+});
+
 describe('Load all items', function () {
   it('should load all items when use loadAllItems() function', function() {
     let summary = loadAllItems();
