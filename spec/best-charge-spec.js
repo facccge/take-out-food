@@ -100,3 +100,56 @@ describe('Format input from string to object', function () {
     expect(summary).toEqual(expected)
   });
 });
+
+describe('Build original bill', function () {
+  it('should build Original Bill by input of formatedSelectedItems and inputItems', function() {
+    let formatedSelectedItems = [{
+      id: 'ITEM0001',
+      quantity: 1
+    }, {
+      id: 'ITEM0013',
+      quantity: 2
+    }, {
+      id: 'ITEM0022',
+      quantity: 1
+    }];
+    let items = [{
+      id: 'ITEM0001',
+      name: '黄焖鸡',
+      price: 18.00
+    }, {
+      id: 'ITEM0013',
+      name: '肉夹馍',
+      price: 6.00
+    }, {
+      id: 'ITEM0022',
+      name: '凉皮',
+      price: 8.00
+    }, {
+      id: 'ITEM0030',
+      name: '冰锋',
+      price: 2.00
+    }];
+    let summary = buildOriginalBill(formatedSelectedItems,items);
+    let expected = [{
+      id: 'ITEM0001',
+      name: '黄焖鸡',
+      price: 18.00,
+      quantity: 1,
+      subtotal: 18.00
+    }, {
+      id: 'ITEM0013',
+      name: '肉夹馍',
+      price: 6.00,
+      quantity: 2,
+      subtotal: 12.00
+    }, {
+      id: 'ITEM0022',
+      name: '凉皮',
+      price: 8.00,
+      quantity: 1,
+      subtotal: 8.00
+    }];
+    expect(summary).toEqual(expected)
+  });
+});

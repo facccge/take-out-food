@@ -21,15 +21,18 @@ function formatInputFromStringToObject(selectedItems){
   return formatedSelectedItems;
 }
 
-function buildOriginalBill(selectedItems,itemList){
-  let originalBill = [];
-  for(slectedItem in selectedItems){
-    for(item in itemList){
-      if(slectedItem.id == item.id){
-        let itemDetail = {}
-        itemDetail.id = selectedItems.name
-        itemDetail.
-        originalBill.add(itemDetail)
+function buildOriginalBill(formatedSelectedItems,items){
+  let originalBill = new Array();
+  for(let formatedSelectedItem of formatedSelectedItems){
+    for(let item of items){
+      if(formatedSelectedItem.id == item.id){
+        let itemDetail = {};
+        itemDetail.id = item.id;
+        itemDetail.name = item.name;
+        itemDetail.price = item.price;
+        itemDetail.quantity = formatedSelectedItem.quantity;
+        itemDetail.subtotal = itemDetail.price * itemDetail.quantity;
+        originalBill.push(itemDetail);
       }
     }
   }  
