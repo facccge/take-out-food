@@ -103,7 +103,7 @@ describe('Format input from string to object', function () {
 
 describe('Build original bill', function () {
   it('should build Original Bill by input of formatedSelectedItems and inputItems', function() {
-    let formatedSelectedItems = [{
+    let inputs1 = [{
       id: 'ITEM0001',
       quantity: 1
     }, {
@@ -113,7 +113,7 @@ describe('Build original bill', function () {
       id: 'ITEM0022',
       quantity: 1
     }];
-    let items = [{
+    let inputs2 = [{
       id: 'ITEM0001',
       name: '黄焖鸡',
       price: 18.00
@@ -130,8 +130,8 @@ describe('Build original bill', function () {
       name: '冰锋',
       price: 2.00
     }];
-    let summary = buildOriginalBill(formatedSelectedItems,items);
-    let expected = [{
+    let summary = buildOriginalBill(inputs1,inputs2);
+    let expected ={itemDetails: [{
       id: 'ITEM0001',
       name: '黄焖鸡',
       price: 18.00,
@@ -149,7 +149,9 @@ describe('Build original bill', function () {
       price: 8.00,
       quantity: 1,
       subtotal: 8.00
-    }];
+    }],
+    totalPrice:38};
     expect(summary).toEqual(expected)
   });
 });
+

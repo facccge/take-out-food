@@ -22,19 +22,26 @@ function formatInputFromStringToObject(selectedItems){
 }
 
 function buildOriginalBill(formatedSelectedItems,items){
-  let originalBill = new Array();
+  let itemDetails = new Array();
+  let totalPrice = 0.00;
   for(let formatedSelectedItem of formatedSelectedItems){
     for(let item of items){
       if(formatedSelectedItem.id == item.id){
-        let itemDetail = {};
+        // id,name,price,quantity,subtotal
+        let itemDetail = {}; 
         itemDetail.id = item.id;
         itemDetail.name = item.name;
         itemDetail.price = item.price;
         itemDetail.quantity = formatedSelectedItem.quantity;
         itemDetail.subtotal = itemDetail.price * itemDetail.quantity;
-        originalBill.push(itemDetail);
+        itemDetails.push(itemDetail);
+        totalPrice += itemDetail.subtotal;
       }
     }
   }  
+  let originalBill = {};
+  originalBill.itemDetails = itemDetails;
+  originalBill.totalPrice = totalPrice;
   return originalBill
 }
+
