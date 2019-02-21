@@ -131,27 +131,58 @@ describe('Build original bill', function () {
       price: 2.00
     }];
     let summary = buildOriginalBill(inputs1,inputs2);
-    let expected ={itemDetails: [{
+    let expected = {itemDetails: [{
       id: 'ITEM0001',
       name: '黄焖鸡',
       price: 18.00,
       quantity: 1,
-      subtotal: 18.00
+      subtotalPrice: 18.00
     }, {
       id: 'ITEM0013',
       name: '肉夹馍',
       price: 6.00,
       quantity: 2,
-      subtotal: 12.00
+      subtotalPrice: 12.00
     }, {
       id: 'ITEM0022',
       name: '凉皮',
       price: 8.00,
       quantity: 1,
-      subtotal: 8.00
+      subtotalPrice: 8.00
     }],
     totalPrice:38};
     expect(summary).toEqual(expected)
   });
 });
 
+describe('Use promotion: over 30 minus 6', function () {
+  it('should return isable = false and discounted price = 0', function() {
+    let inputs = {itemDetails: [{
+      id: 'ITEM0001',
+      name: '黄焖鸡',
+      price: 18.00,
+      quantity: 1,
+      subtotalPrice: 18.00
+    }, {
+      id: 'ITEM0013',
+      name: '肉夹馍',
+      price: 6.00,
+      quantity: 2,
+      subtotalPrice: 12.00
+    }, {
+      id: 'ITEM0022',
+      name: '凉皮',
+      price: 8.00,
+      quantity: 1,
+      subtotalPrice: 8.00
+    }],
+    totalPrice:38};
+    let summary = usePromotionOver30minus6(inputs);
+    let expected = {
+      isable:false,
+      description:'满30减6元，省6元',
+      discountedPrice:6.00
+    };
+    expect(summary).toEqual(expected)
+  });
+});

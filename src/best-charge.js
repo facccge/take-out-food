@@ -33,9 +33,9 @@ function buildOriginalBill(formatedSelectedItems,items){
         itemDetail.name = item.name;
         itemDetail.price = item.price;
         itemDetail.quantity = formatedSelectedItem.quantity;
-        itemDetail.subtotal = itemDetail.price * itemDetail.quantity;
+        itemDetail.subtotalPrice = itemDetail.price * itemDetail.quantity;
         itemDetails.push(itemDetail);
-        totalPrice += itemDetail.subtotal;
+        totalPrice += itemDetail.subtotalPrice;
       }
     }
   }  
@@ -45,3 +45,18 @@ function buildOriginalBill(formatedSelectedItems,items){
   return originalBill
 }
 
+function selectBestPromotion(originalBill,promotions){
+
+}
+
+function usePromotionOver30minus6(originalBill){
+  // isable,discountedPrice
+  let promotionInfo = {};
+  return promotionInfo;
+}
+
+function usePromotionHalfPriceOfDesignatedItem(originalBill){
+  // isable,discountedPrice
+  let promotionInfo = {};
+  return promotionInfo;
+}
