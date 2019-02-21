@@ -179,8 +179,8 @@ describe('Use promotion: over 30 minus 6', function () {
     totalPrice:38};
     let summary = usePromotionOver30minus6(inputs);
     let expected = {
-      isable:false,
       description:'满30减6元，省6元',
+      isabled:true,
       discountedPrice:6.00
     };
     expect(summary).toEqual(expected)

@@ -27,7 +27,7 @@ function buildOriginalBill(formatedSelectedItems,items){
   for(let formatedSelectedItem of formatedSelectedItems){
     for(let item of items){
       if(formatedSelectedItem.id == item.id){
-        // id,name,price,quantity,subtotal
+        // id,name,price,quantity,subtotalPrice
         let itemDetail = {}; 
         itemDetail.id = item.id;
         itemDetail.name = item.name;
@@ -39,6 +39,7 @@ function buildOriginalBill(formatedSelectedItems,items){
       }
     }
   }  
+  //itemDetails,totalPrice
   let originalBill = {};
   originalBill.itemDetails = itemDetails;
   originalBill.totalPrice = totalPrice;
@@ -50,13 +51,20 @@ function selectBestPromotion(originalBill,promotions){
 }
 
 function usePromotionOver30minus6(originalBill){
-  // isable,discountedPrice
+  // isable,description,discountedPrice
   let promotionInfo = {};
+  promotionInfo.description = '满30减6元，省6元';
+  promotionInfo.isabled = false;
+  promotionInfo.discountedPrice = 0.00;
+  if(originalBill.totalPrice >= 30.00){
+    promotionInfo.isabled = true;
+    promotionInfo.discountedPrice = 6.00;
+  }
   return promotionInfo;
 }
 
 function usePromotionHalfPriceOfDesignatedItem(originalBill){
-  // isable,discountedPrice
+  // isable,description,discountedPrice
   let promotionInfo = {};
   return promotionInfo;
 }
