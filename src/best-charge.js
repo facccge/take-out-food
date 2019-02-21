@@ -66,5 +66,17 @@ function usePromotionOver30minus6(originalBill){
 function usePromotionHalfPriceOfDesignatedItem(originalBill){
   // isable,description,discountedPrice
   let promotionInfo = {};
+  promotionInfo.description = '指定菜品半价(黄焖鸡，凉皮)';
+  promotionInfo.isabled = false;
+  promotionInfo.discountedPrice = 0.00;
+  let halfPriceItemIds = ['ITEM0001','ITEM0022'];
+  for(let itemDetail of originalBill.itemDetails){
+    for(let halfPriceItemId of halfPriceItemIds){
+      if(itemDetail.id === halfPriceItemId){
+        promotionInfo.isabled = true;
+        promotionInfo.discountedPrice += 0.5 * itemDetail.subtotalPrice;
+      }
+    }
+  }
   return promotionInfo;
 }
