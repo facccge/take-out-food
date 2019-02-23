@@ -93,3 +93,14 @@ function usePromotionHalfPriceOfDesignatedItem(originalBill){
   }
   return promotionInfo;
 }
+
+function buildFinalBill(originalBill,promotionInfo){
+  let finalBill = {};
+  finalBill.itemDetails = originalBill.itemDetails;
+  finalBill.totalPrice = originalBill.totalPrice - promotionInfo.discountedPrice;
+  if(promotionInfo.isabled == true){
+    finalBill.promotionInfo = promotionInfo;
+  }
+  return finalBill;
+}
+
