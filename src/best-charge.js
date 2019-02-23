@@ -47,7 +47,20 @@ function buildOriginalBill(formatedSelectedItems,items){
 }
 
 function selectBestPromotion(originalBill,promotions){
-
+  let promotionFunctions = [usePromotionOver30minus6,usePromotionHalfPriceOfDesignatedItem];
+  let bestPromotionInfo = {};
+  bestPromotionInfo.isabled = false;
+  bestPromotionInfo.description = '';
+  bestPromotionInfo.discountedPrice = 0.0;
+  for(let promotionFunction of promotionFunctions){
+    let promotionInfo = promotionFunction(originalBill);
+    if(promotionInfo.discountedPrice > bestPromotionInfo.discountedPrice){
+      bestPromotionInfo.isabled = true;
+      bestPromotionInfo.description = promotionInfo.description;
+      bestPromotionInfo.discountedPrice = promotionInfo.discountedPrice;
+    }
+  }
+  return bestPromotionInfo;
 }
 
 function usePromotionOver30minus6(originalBill){

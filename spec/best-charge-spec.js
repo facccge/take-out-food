@@ -227,7 +227,6 @@ describe('Use promotion: over 30 minus 6', function () {
   });
 });
 
-
 describe('Use promotion: half price of designated item', function () {
   it('should return info when items satisfy:"half price of designated item"', function() {
     let inputs = {itemDetails: [{
@@ -293,6 +292,78 @@ describe('Use promotion: half price of designated item', function () {
     let summary = usePromotionHalfPriceOfDesignatedItem(inputs);
     let expected = {
       description:'指定菜品半价(黄焖鸡，凉皮)',
+      isabled:false,
+      discountedPrice:0.00
+    };
+    expect(summary).toEqual(expected)
+  });
+});
+
+describe('Select best promotion', function () {
+  it('should return promotion:  half price of designated item', function() {
+    let inputs = {itemDetails: [{
+      id: 'ITEM0001',
+      name: '黄焖鸡',
+      price: 18.00,
+      quantity: 1,
+      subtotalPrice: 18.00
+    }, {
+      id: 'ITEM0013',
+      name: '肉夹馍',
+      price: 6.00,
+      quantity: 2,
+      subtotalPrice: 12.00
+    }, {
+      id: 'ITEM0022',
+      name: '凉皮',
+      price: 8.00,
+      quantity: 1,
+      subtotalPrice: 8.00
+    }],
+    totalPrice:38};
+    let summary = selectBestPromotion(inputs);
+    let expected = {
+      description:'指定菜品半价(黄焖鸡，凉皮)',
+      isabled:true,
+      discountedPrice:13.00
+    };
+    expect(summary).toEqual(expected)
+  });
+  it('should return promotion: over 30 minus 6', function() {
+    let inputs = {itemDetails: [{
+      id: 'ITEM0013',
+      name: '肉夹馍',
+      price: 6.00,
+      quantity: 4,
+      subtotalPrice: 24.00
+    }, {
+      id: 'ITEM0022',
+      name: '凉皮',
+      price: 8.00,
+      quantity: 1,
+      subtotalPrice: 8.00
+    }],
+    totalPrice:32};
+    let summary = selectBestPromotion(inputs);
+    let expected = {
+      description:'满30减6元，省6元',
+      isabled:true,
+      discountedPrice:6.00
+    };
+    expect(summary).toEqual(expected)
+  });
+  it('should return there is no avaliable promotion', function() {
+    let inputs = {itemDetails: [ {
+      id: 'ITEM0013',
+      name: '肉夹馍',
+      price: 6.00,
+      quantity: 4,
+      subtotalPrice: 24.00
+    }],
+    totalPrice:24};
+    let summary = selectBestPromotion(inputs);
+    let expected = {
+      description:'',
       isabled:false,
       discountedPrice:0.00
     };
