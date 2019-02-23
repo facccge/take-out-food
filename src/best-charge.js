@@ -2,10 +2,10 @@ function bestCharge(selectedItems) {
   let items = loadAllItems();
   let promotions = loadPromotions();
   let formatedSelectedItems = formatInputFromStringToObject(selectedItems);
-  let originalBill = buildOriginalBill(selectedItems,items);
-  let cheapestBill = selectBestPromotion(originalBill,promotions);
-  let billViewModel = buildBillViewModel(cheapestBill);
-  let result = printBill(billViewModel);
+  let originalBill = buildOriginalBill(formatedSelectedItems,items);
+  let bestPromotion = selectBestPromotion(originalBill,promotions);
+  let finalBill = buildFinalBill(originalBill,bestPromotion);
+  let result = printBill(finalBill);
   return result;
 }
 
