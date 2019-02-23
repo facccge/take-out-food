@@ -155,8 +155,8 @@ describe('Build original bill', function () {
   });
 });
 
-describe('Use promotion: over 30 minus 6', function () {
-  it('should return info when items satisfy: over 30 minus 6', function() {
+describe('Use promotion 满30减6元', function () {
+  it('should return info when items satisfy 满30减6元', function() {
     let inputs = {itemDetails: [{
       id: 'ITEM0001',
       name: '黄焖鸡',
@@ -179,13 +179,13 @@ describe('Use promotion: over 30 minus 6', function () {
     totalPrice:38};
     let summary = usePromotionOver30minus6(inputs);
     let expected = {
-      description:'满30减6元，省6元',
+      description:'满30减6元',
       isabled:true,
       discountedPrice:6.00
     };
     expect(summary).toEqual(expected)
   });
-  it('should return info when items satisfy: over 30 minus 6', function() {
+  it('should return info when items satisfy 满30减6元', function() {
     let inputs = {itemDetails: [{
       id: 'ITEM0013',
       name: '肉夹馍',
@@ -202,13 +202,13 @@ describe('Use promotion: over 30 minus 6', function () {
     totalPrice:32};
     let summary = usePromotionOver30minus6(inputs);
     let expected = {
-      description:'满30减6元，省6元',
+      description:'满30减6元',
       isabled:true,
       discountedPrice:6.00
     };
     expect(summary).toEqual(expected)
   });
-  it('should return info when items do not satisfy: over 30 minus 6', function() {
+  it('should return info when items do not satisfy 满30减6元', function() {
     let inputs = {itemDetails: [ {
       id: 'ITEM0013',
       name: '肉夹馍',
@@ -219,7 +219,7 @@ describe('Use promotion: over 30 minus 6', function () {
     totalPrice:24};
     let summary = usePromotionOver30minus6(inputs);
     let expected = {
-      description:'满30减6元，省6元',
+      description:'满30减6元',
       isabled:false,
       discountedPrice:0.00
     };
@@ -227,8 +227,8 @@ describe('Use promotion: over 30 minus 6', function () {
   });
 });
 
-describe('Use promotion: half price of designated item', function () {
-  it('should return info when items satisfy: half price of designated item', function() {
+describe('Use promotion 指定菜品半价', function () {
+  it('should return info when items satisfy 指定菜品半价', function() {
     let inputs = {itemDetails: [{
       id: 'ITEM0001',
       name: '黄焖鸡',
@@ -257,7 +257,7 @@ describe('Use promotion: half price of designated item', function () {
     };
     expect(summary).toEqual(expected)
   });
-  it('should return info when items satisfy: half price of designated item', function() {
+  it('should return info when items satisfy 指定菜品半价', function() {
     let inputs = {itemDetails: [{
       id: 'ITEM0013',
       name: '肉夹馍',
@@ -280,7 +280,7 @@ describe('Use promotion: half price of designated item', function () {
     };
     expect(summary).toEqual(expected)
   });
-  it('should return info when items do not satisfy: half price of designated item', function() {
+  it('should return info when items do not satisfy 指定菜品半价', function() {
     let inputs = {itemDetails: [ {
       id: 'ITEM0013',
       name: '肉夹馍',
@@ -329,7 +329,7 @@ describe('Select best promotion', function () {
     };
     expect(summary).toEqual(expected)
   });
-  it('should return promotion: over 30 minus 6', function() {
+  it('should return promotion 满30减6元', function() {
     let inputs = {itemDetails: [{
       id: 'ITEM0013',
       name: '肉夹馍',
@@ -346,7 +346,7 @@ describe('Select best promotion', function () {
     totalPrice:32};
     let summary = selectBestPromotion(inputs);
     let expected = {
-      description:'满30减6元，省6元',
+      description:'满30减6元',
       isabled:true,
       discountedPrice:6.00
     };
@@ -372,7 +372,7 @@ describe('Select best promotion', function () {
 });
 
 describe('Build final bill', function () {
-  it('should build final Bill with promotion: half price of designated item', function() {
+  it('should build final Bill when best promotion is 指定菜品半价', function() {
     let inputs1 = {itemDetails: [{
       id: 'ITEM0001',
       name: '黄焖鸡',
@@ -427,7 +427,7 @@ describe('Build final bill', function () {
     };
     expect(summary).toEqual(expected)
   });
-  it('should build final Bill with promotion: over 30 minus 6', function() {
+  it('should build final Bill when best promotion is 满30减6元', function() {
     let inputs1 = {itemDetails: [{
       id: 'ITEM0013',
       name: '肉夹馍',
@@ -443,7 +443,7 @@ describe('Build final bill', function () {
     }],
     totalPrice:32};
     let inputs2 = {
-      description:'满30减6元，省6元',
+      description:'满30减6元',
       isabled:true,
       discountedPrice:6.00
     };
@@ -462,14 +462,14 @@ describe('Build final bill', function () {
       subtotalPrice: 8.00
     }],
     promotionInfo:{
-      description:'满30减6元，省6元',
+      description:'满30减6元',
       isabled:true,
       discountedPrice:6.00
     },
     totalPrice:26};
     expect(summary).toEqual(expected)
   });
-  it('should build final Bill with no avaliable promotion', function() {
+  it('should build final Bill when no promotion can be used', function() {
     let inputs1 = {itemDetails: [ {
       id: 'ITEM0013',
       name: '肉夹馍',
@@ -492,6 +492,102 @@ describe('Build final bill', function () {
       subtotalPrice: 24.00
     }],
     totalPrice:24};
+    expect(summary).toEqual(expected)
+  });
+});
+
+describe('printBill', function () {
+  it('should return a string of the final bill when best is 指定菜品半价', function() {
+    let inputs =  {itemDetails: [{
+      id: 'ITEM0001',
+      name: '黄焖鸡',
+      price: 18.00,
+      quantity: 1,
+      subtotalPrice: 18.00
+    }, {
+      id: 'ITEM0013',
+      name: '肉夹馍',
+      price: 6.00,
+      quantity: 2,
+      subtotalPrice: 12.00
+    }, {
+      id: 'ITEM0022',
+      name: '凉皮',
+      price: 8.00,
+      quantity: 1,
+      subtotalPrice: 8.00
+    }], 
+    promotionInfo:{
+      description:'指定菜品半价(黄焖鸡，凉皮)',
+      isabled:true,
+      discountedPrice:13.00
+    },
+    totalPrice:25
+  };
+    
+    let summary = printBill(inputs);
+    let expected =  `
+============= 订餐明细 =============
+黄焖鸡 x 1 = 18元
+肉夹馍 x 2 = 12元
+凉皮 x 1 = 8元
+-----------------------------------
+使用优惠:
+指定菜品半价(黄焖鸡，凉皮)，省13元
+-----------------------------------
+总计：25元
+===================================`.trim();
+    expect(summary).toEqual(expected);
+  });
+  it('should return a string of the final bill when best is 满30减6元', function() {
+    let inputs =  {itemDetails: [{
+      id: 'ITEM0013',
+      name: '肉夹馍',
+      price: 6.00,
+      quantity: 4,
+      subtotalPrice: 24.00
+    }, {
+      id: 'ITEM0022',
+      name: '凉皮',
+      price: 8.00,
+      quantity: 1,
+      subtotalPrice: 8.00
+    }],
+    promotionInfo:{
+      description:'满30减6元',
+      isabled:true,
+      discountedPrice:6.00
+    },
+    totalPrice:26};
+    let summary = printBill(inputs);
+    let expected =  `
+============= 订餐明细 =============
+肉夹馍 x 4 = 24元
+凉皮 x 1 = 8元
+-----------------------------------
+使用优惠:
+满30减6元，省6元
+-----------------------------------
+总计：26元
+===================================`.trim();
+    expect(summary).toEqual(expected)
+  });
+  it('should return a string of the final bill when when no promotion can be used', function() {
+    let inputs = {itemDetails: [ {
+      id: 'ITEM0013',
+      name: '肉夹馍',
+      price: 6.00,
+      quantity: 4,
+      subtotalPrice: 24.00
+    }],
+    totalPrice:24};
+    let summary = printBill(inputs);
+    let expected = `
+============= 订餐明细 =============
+肉夹馍 x 4 = 24元
+-----------------------------------
+总计：24元
+===================================`.trim();
     expect(summary).toEqual(expected)
   });
 });

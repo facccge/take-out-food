@@ -66,7 +66,7 @@ function selectBestPromotion(originalBill,promotions){
 function usePromotionOver30minus6(originalBill){
   // isable,description,discountedPrice
   let promotionInfo = {};
-  promotionInfo.description = '满30减6元，省6元';
+  promotionInfo.description = '满30减6元';
   promotionInfo.isabled = false;
   promotionInfo.discountedPrice = 0.00;
   if(originalBill.totalPrice >= 30.00){
@@ -104,3 +104,21 @@ function buildFinalBill(originalBill,promotionInfo){
   return finalBill;
 }
 
+function printBill(finalBill){
+  outputString = '============= 订餐明细 =============\n';
+  for(let itemDetail of finalBill.itemDetails){
+    outputString += itemDetail.name + ' x '
+    + itemDetail.quantity + ' = '
+    + itemDetail.subtotalPrice + '元\n';
+  }
+  outputString += '-----------------------------------\n'
+  if(finalBill.promotionInfo){
+    outputString += '使用优惠:\n'
+    outputString += finalBill.promotionInfo.description + '，省'
+    + finalBill.promotionInfo.discountedPrice +'元\n';
+    outputString += '-----------------------------------\n'
+  }
+  outputString += '总计：'+finalBill.totalPrice+'元\n';
+  outputString += '===================================';
+  return outputString;
+}
